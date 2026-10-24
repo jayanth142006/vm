@@ -1,0 +1,50 @@
+sudo apt update
+sudo apt install apache2 -y
+sudo systemctl enable apache2 
+sudo systemctl start apache2 
+sudo systemctl status apache2
+echo "<h1> Hello from vm1 </h1>" | sudo tee /var/www/html/index.html
+echo "<h1> Hello from vm2 </h1>" | sudo tee /var/www/html/index.html
+sudo apt install net-tools -y
+ifconfig
+sudo apt update
+sudo apt install haproxy -y
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
+sudo nano /etc/haproxy/haproxy.cfg
+frontend http_front
+    bind *:80
+    default_backend http_back
+backend http_back
+    balance roundrobin
+    option httpchk GET /
+    server VM1    :80 check
+    server VM2.   :80 check
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+sudo systemctl restart haproxy
+sudo systemctl enable haproxy 
+http://..
+
+Task Scheduling
+
+nano script.sh
+#!/bin/bash
+echo "Hello from scheduled task"
+chmod +x script.sh
+pwd
+./script.sh
+crontab -e
+*/10 * * * * /home/ubuntu/script.sh >> /home/ubuntu/output.log 2>&1
+sudo systemctl enable --now cron
+sudo systemctl status cron
+Wait one minute..  cat output.log
+
+Server Consolidation and Resource Monitoring
+sudo apt update
+sudo apt install htop -y
+htop (q to exit)
+1. Open VMware Workstation.
+2. Select a VM.
+3. Click Edit virtual machine settings.
+4. Click Memory and record the RAM allocation.
+5. Click Processors and record the number of virtual CPUs.
+6. Repeat for the other VMs.
