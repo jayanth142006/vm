@@ -1,0 +1,117 @@
+import socket
+s=socket.socket()
+s.bind(("localhost",3000))
+s.listen(1)
+print()
+c,addr=s.accept()
+data=c.recv(4096).decode()
+a,b,c=map(int,data.split())
+calc
+c.send(str(result).encode())
+c.close()
+s.close()
+
+import socket
+c=socket.socket()
+c.connect(("localhost",3000))
+a=int(input(""))
+b=input
+data={}
+c.send(data.encode())
+result=c.recv(4096).decode()
+
+----
+import socket
+import pickle
+class DataObject:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+s=socket.socket()
+s.bind(("localhost",3000))
+s.listen(1)
+print()
+c,addr=s.accept()
+d=c.recv(4096)
+data=pickle.loads(d)
+name=data.name
+marks=data.marks
+result=sum(marks)
+c.send(picke.dumps(result))
+c.close()
+s.close()
+
+import socket
+import pickle
+class DataObject:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+s=socket.socket()
+s.connect(("localhost",3000))
+obj=DataObject("l",[23,23,23])
+s.send(pickle.dumps(obj))
+result=s.recv(4096)
+result=pickle.loads(result)
+---
+import Pyro4
+@Pyro4.expose
+class calculator:
+    def add_num(self,a,b):
+        return a+b
+    def mul(self,a,b):
+        return a*b
+deamon=Pyro4.Daemon()
+uri=daemon.register(Calculator())
+print(uri)
+daemon.requestLoop()
+
+import Pyro4
+uri=input()
+calc=Pyro4.proxy(uri)
+print(calc.add_num(a,b))
+print(calc.mul(a,b))
+----
+import socket import threading
+
+clients=[]
+def handle_clients(c):
+    while true:
+        try:
+            data=c.recv(1096).decode()
+            if not data:
+                break
+            print(data)
+            for client in clients:
+                if client!=c:
+                    client.send(data.encode())
+        except:
+            break
+    clients.remove(c)
+    c.close()
+s=socket.socket()
+s.bind(("localhost",3000))
+s.listen(1)
+print("server")
+while True:
+    c,addr=s.accept()
+    clients.append(c)
+    print("client")
+    threading.Thread(target=handle_clients,args=(c,)).start()
+
+import socket import threading
+s=socket.socket()
+s.connect(("localhost",3000))
+def receive():
+    while True:
+        try:
+            data=s.recv(1096).decode()
+            print(data)
+        except:
+            break
+threading.Thread(target=receive,daemon=True)
+while True:
+    n=input()
+    s.send(n.encode())
+--
+        
