@@ -5,8 +5,8 @@ s.listen(1)
 print()
 c,addr=s.accept()
 data=c.recv(4096).decode()
-a,b,c=map(int,data.split())
-calc
+a,b=map(int,data.split())
+result=a+b
 c.send(str(result).encode())
 c.close()
 s.close()
@@ -14,9 +14,9 @@ s.close()
 import socket
 c=socket.socket()
 c.connect(("localhost",3000))
-a=int(input(""))
-b=input
-data={}
+a=input("")
+b=input("")
+data=a+" "+b
 c.send(data.encode())
 result=c.recv(4096).decode()
 
