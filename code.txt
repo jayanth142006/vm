@@ -61,14 +61,14 @@ class calculator:
         return a+b
     def mul(self,a,b):
         return a*b
-deamon=Pyro4.Daemon()
+daemon=Pyro4.Daemon()
 uri=daemon.register(Calculator())
 print(uri)
 daemon.requestLoop()
 
 import Pyro4
 uri=input()
-calc=Pyro4.proxy(uri)
+calc=Pyro4.Proxy(uri)
 print(calc.add_num(a,b))
 print(calc.mul(a,b))
 ----
